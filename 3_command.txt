@@ -1,0 +1,25 @@
+# 本地训练命令
+python object_detection/train.py  --logtostderr  --train_dir=train   --pipeline_config_path=ssd_mobilenet_coco.config
+# Linux服务器训练
+CUDA_VISIBLE_DEVICE=0,1 python object_detection/train.py         --logtostderr         --train_dir=train         --pipeline_config_path=ssd_mobilenet_coco.config > log.txt
+# 在线推断命令
+# 100
+python object_detection/export_inference_graph.py   --input_type image_tensor   --pipeline_config_path ssd_mobilenet_coco.config --trained_checkpoint_prefix /Users/martinwang/eclipse-workspace/tf_object_detection_code/train/model.ckpt-23   --output_directory output_inference_graph
+# 10000
+python object_detection/export_inference_graph.py   --input_type image_tensor   --pipeline_config_path ssd_mobilenet_coco.config --trained_checkpoint_prefix /Users/martinwang/eclipse-workspace/tf_object_detection_code/train/model.ckpt-10000  --output_directory output_inference_graph
+# 99509
+python object_detection/export_inference_graph.py   --input_type image_tensor   --pipeline_config_path ssd_mobilenet_coco.config --trained_checkpoint_prefix /Users/martinwang/eclipse-workspace/tf_object_detection_code/train/model.ckpt-99509   --output_directory output_inference_graph1
+
+# 测试命令
+python object_detection/object_detection_runner.py
+
+[1]异常解决
+win10下用tensorflow object detection API 验证时报No module named 'object_detection'
+http://blog.csdn.net/whitesilence/article/details/79047107
+
+在路径：
+C:\Anaconda3\Anaconda3\Lib\site-packages
+下创建，tensorflow_model.pth。并填充如下内容：
+D:\project\peixun\ai_13_rf_car_tesla_px\tf_object_detection_code
+D:\project\peixun\ai_13_rf_car_tesla_px\tf_object_detection_code\slim
+D:\project\peixun\ai_13_rf_car_tesla_px\tf_object_detection_code\object_detection
