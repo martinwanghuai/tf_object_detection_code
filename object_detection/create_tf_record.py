@@ -93,6 +93,7 @@ def dict_to_tf_example(data,
     ymax.append(float(obj['bndbox']['ymax']) / height)
 
     class_name = obj['name']
+    print(class_name)
     classes_text.append(class_name.encode('utf8'))
     classes.append(label_map_dict[class_name])
     truncated.append(int(0))
@@ -139,15 +140,18 @@ def create_tf_record(output_filename,
   for idx, example in enumerate(examples):
     if idx % 100 == 0:
       logging.info('On image %d of %d', idx, len(examples))
+      
+    print('On image %d of %d', idx, len(examples)) 
+    
     path = os.path.join(annotations_dir, 'xmls', example + '.xml')
-
+    print("create_tf_record:" + path)
     if not os.path.exists(path):
       logging.warning('Could not find %s, ignoring example.', path)
       continue
     with tf.gfile.GFile(path, 'r') as fid:
       xml_str = fid.read()
     xml = etree.fromstring(xml_str)
-    data = dataset_util.recursive_parse_xml_to_dict(xml)['annotation']
+    data = dataset_util.recursive_parse_xml_to_dict(xml)['annotations']
 
     tf_example = dict_to_tf_example(data, label_map_dict, image_dir)
     writer.write(tf_example.SerializeToString())
@@ -158,11 +162,17 @@ def main(_):
   label_map_dict = label_map_util.get_label_map_dict('annotations/label_map.pbtxt')
 
   logging.info('Reading from Pet dataset.')
+  print("Reading from Pet database.")
+  
   image_dir = 'images'
   annotations_dir = 'annotations'
   examples_path = os.path.join(annotations_dir, 'trainval.txt')
   examples_list = dataset_util.read_examples_list(examples_path)
-
+  print(len(examples_list))
+  
+  for idx, example in enumerate(examples_list):
+      print(str(idx) + ":" + example)
+      
   # Test images are not included in the downloaded data set, so we shall perform
   # our own split.
   random.seed(42)
@@ -173,7 +183,9 @@ def main(_):
   val_examples = examples_list[num_train:]
   logging.info('%d training and %d validation examples.',
                len(train_examples), len(val_examples))
-
+  print('%d training and %d validation examples.',
+               len(train_examples), len(val_examples))
+  
   train_output_path = 'train.record'
   val_output_path = 'val.record'
   create_tf_record(train_output_path, label_map_dict, annotations_dir,

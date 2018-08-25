@@ -38,15 +38,12 @@ import os
 import xml.etree.cElementTree as ET
 from PIL import Image
 
-ANNOTATIONS_DIR_PREFIX = "/Users/martinwang/Desktop/zhanlang/label/"
+ANNOTATIONS_DIR_PREFIX = "/Users/martinwang/Desktop/temp/label_640/"
 
-DESTINATION_DIR = "/Users/martinwang/Desktop/zhanlang/voc_labels"
+DESTINATION_DIR = "/Users/martinwang/Desktop/temp/voc_labels"
 
 CLASS_MAPPING = {
-    '0': 'gun',
-    '1': 'tank',
-    '2': 'bullet'
-    # Add your remaining classes here.
+    '80': 'tank'
 }
 
 
@@ -86,7 +83,7 @@ def create_file(file_prefix, width, height, voc_labels):
 def read_file(file_path):
     file_prefix = file_path.split(".txt")[0]
     image_file_name = "{}.jpg".format(file_prefix)
-    img = Image.open("{}/{}".format("/Users/martinwang/Desktop/zhanlang/image/", image_file_name))
+    img = Image.open("{}/{}".format("/Users/martinwang/Desktop/temp/image_640/", image_file_name))
     w, h = img.size
     with open(os.path.join(ANNOTATIONS_DIR_PREFIX,file_path), 'r') as file:
         lines = file.readlines()
@@ -108,7 +105,7 @@ def read_file(file_path):
         create_file(file_prefix, w, h, voc_labels)
     print("Processing complete for file: {}".format(file_path))
     
-    with open("/Users/martinwang/Desktop/zhanlang/trainval.txt",'a') as file:
+    with open("/Users/martinwang/Desktop/temp/trainval.txt",'a') as file:
         file.write(file_prefix + os.linesep)
 
 
