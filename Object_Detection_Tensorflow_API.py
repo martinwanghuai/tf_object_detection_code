@@ -89,9 +89,14 @@ def detect_objects(image_np, sess, detection_graph):
 # In[6]:
 
 # First test on images
-PATH_TO_TEST_IMAGES_DIR = '/Users/martinwang/eclipse-workspace/tf_object_detection_code/object_detection/test_images/'
+PATH_TO_TEST_IMAGES_DIR = '/Users/martinwang/eclipse-workspace/tf_object_detection_code/images/'
 TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 5) ]
-
+from os import listdir
+# TEST_IMAGE_PATHS = [ f for f in listdir(PATH_TO_TEST_IMAGES_DIR)]
+TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, f) for f in listdir(PATH_TO_TEST_IMAGES_DIR)]
+for f in TEST_IMAGE_PATHS:
+    print(f)
+    
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)
 
