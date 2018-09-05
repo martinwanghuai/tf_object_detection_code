@@ -3,3 +3,5 @@
 /labelimg/
 /output/
 /test_images/
+/train.record
+/val.record
