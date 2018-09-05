@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
+encoding//utils/generate.py=utf-8
 encoding//utils/train.py=utf-8
+encoding/Object_Detection_Tensorflow_API.py=utf-8
