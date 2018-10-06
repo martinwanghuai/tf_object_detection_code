@@ -76,15 +76,16 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
     for epoch in range(n_epoch):
         sum_error = 0
         for row in train:
-#             print('row:' , row)
+#             print('row:', row)
             outputs = forward_propagate(network, row)
             expected = [0 for i in range(n_outputs)]
             expected[row[-1]] = 1
+#             print('expected:' , expected)
             sum_error += sum([(expected[i] - outputs[i])**2 for i in range(len(expected))])
             backward_propagate_error(network, expected)
             update_weights(network, row, l_rate)
         print('>epch=%d, lrate=%.3f, error = %.3f' % (epoch, l_rate, sum_error))  
-            
+             
                                
 #Test traning backprop algorithm
 seed(1)
