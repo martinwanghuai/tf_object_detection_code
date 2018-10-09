@@ -28,7 +28,7 @@ dataset = dataset.drop('Id', axis = 1)
 # print(dataset[dataset['SepalLengthCm']>7.2])
 # print(dataset.where(dataset['SepalLengthCm']>7.2)) #not so good
 
-#Scatter plot
+#Scatter plot: can show missing values
 # sns.FacetGrid(dataset, hue="Species", size=5) \
 #     .map(plt.scatter, "SepalLengthCm", "SepalWidthCm") \
 #     .add_legend()
@@ -58,7 +58,7 @@ dataset = dataset.drop('Id', axis = 1)
 # boxthree.set_edgecolor('black')
 # plt.show()
 
-#histograms
+#histograms: can be replaced by multivariate plots
 # dataset.hist(figsize=(10, 5))
 # plt.show()
 
